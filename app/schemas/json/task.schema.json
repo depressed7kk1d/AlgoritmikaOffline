@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://algoritmika.local/schemas/task.json",
+  "type": "object",
+  "required": ["id", "title", "description", "language", "kind"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9_\\-]+$"},
+    "title": {"type": "string", "minLength": 1},
+    "description": {"type": "string"},
+    "language": {"type": "string", "enum": ["python"]},
+    "kind": {"type": "string", "enum": ["declarative", "custom_checker"]},
+    "template": {"type": "string"},
+    "hints": {"type": "array", "items": {"type": "string"}},
+    "tests": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["input", "expected"],
+        "properties": {
+          "name": {"type": "string"},
+          "input": {"type": "string"},
+          "expected": {"type": "string"},
+          "timeout_sec": {"type": "number", "minimum": 0.1, "default": 2.0},
+          "memory_mb": {"type": "integer", "minimum": 32, "default": 128}
+        },
+        "additionalProperties": false
+      }
+    },
+    "checker": {
+      "type": "object",
+      "properties": {
+        "type": {"type": "string", "enum": ["exact", "strip", "regex", "python_expr"]},
+        "expr": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "score": {"type": "integer", "minimum": 0, "default": 100},
+    "tags": {"type": "array", "items": {"type": "string"}},
+    "visibility": {"type": "string", "enum": ["public", "private"], "default": "public"}
+  },
+  "additionalProperties": false
+}
