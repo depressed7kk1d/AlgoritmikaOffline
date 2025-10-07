@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://algoritmika.local/schemas/task_folder.json",
+  "type": "object",
+  "required": ["id", "title", "language", "kind"],
+  "properties": {
+    "id": {"type": "string"},
+    "title": {"type": "string"},
+    "language": {"type": "string", "enum": ["python"]},
+    "kind": {"type": "string", "enum": ["custom_checker"]},
+    "template": {"type": "string"},
+    "time_limit": {"type": "number", "default": 2.0},
+    "memory_mb": {"type": "integer", "default": 128}
+  },
+  "additionalProperties": false
+}
